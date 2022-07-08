@@ -1,3 +1,5 @@
+
+
 import { Calendar} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
@@ -49,7 +51,9 @@ const onSelect = ( event)=>{
   console.log({click:event})
 }
 const onViewChanged = ( event)=>{
-  localeStorage.setItem('lastView', event);
+  localStorage.setItem('lastView', event)
+  console.log(lastView)
+  setLastView(event)
 }
   return (
     <div>
