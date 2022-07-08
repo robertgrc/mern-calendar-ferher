@@ -1,5 +1,4 @@
-/* Modal */
-/* .ReactModalPortal > div{
+.ReactModalPortal > div{
     opacity: 0;
   }
   
@@ -37,4 +36,4 @@
     max-width: 500px;
     outline: none;
     padding: 10px;
-  } */
+  }
