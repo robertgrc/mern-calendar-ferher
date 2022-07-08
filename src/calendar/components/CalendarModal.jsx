@@ -1,11 +1,12 @@
 import { addHours } from 'date-fns';
 import { useState } from 'react';
-import DatePicker from "react-datepicker";
+import DatePicker, {registerLocale} from "react-datepicker";
 import Modal from 'react-modal';
 import "./CalendarModal.css"
-
 import "react-datepicker/dist/react-datepicker.css";
+import es from 'date-fns/locale/es';
 
+registerLocale('es', es)
 
 const customStyles = {
     content: {
@@ -70,6 +71,9 @@ export const CalendarModal = () => {
                         selected={formValues.start}
                         onChange={(event)=>onDateChanged(event, 'start')}                        className="form-control"
                         dateFormat="Pp"
+                        showTimeSelect
+                        locale="es"
+                        timeCaption='Hora'
                     />
                 </div>
 
@@ -80,6 +84,9 @@ export const CalendarModal = () => {
                         selected={formValues.end}
                         onChange={(event)=>onDateChanged(event, 'end')}                        className="form-control"
                         dateFormat="Pp"
+                        showTimeSelect
+                        locale="es"
+                        timeCaption='Hora'
                     />
                 </div>
 
@@ -94,6 +101,7 @@ export const CalendarModal = () => {
                         autoComplete="off"
                         value={formValues.title}
                         onChange={onInputChanged}
+                       
                     />
                     <small id="emailHelp" className="form-text text-muted">Una descripción corta</small>
                 </div>
@@ -107,6 +115,7 @@ export const CalendarModal = () => {
                         name="notes"
                         value={formValues.notes}
                         onChange={onInputChanged}
+                        
                     ></textarea>
                     <small id="emailHelp" className="form-text text-muted">Información adicional</small>
                 </div>
