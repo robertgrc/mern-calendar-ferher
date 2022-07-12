@@ -7,7 +7,7 @@ import { addHours} from 'date-fns'
 import { Navbar, CalendarEvent, CalendarModal} from "../";
 import { localizer, getMessagesES } from '../../helpers';
 import { useState } from 'react';
-import { useUiStore } from '../../hooks';
+import { useUiStore, useCalendarStore} from '../../hooks';
 
 
 
@@ -15,22 +15,11 @@ import { useUiStore } from '../../hooks';
 // import { Navbar } from "../components/Navbar"
 
 
-const events = [{
-  title: "Cumpleanos del jefe",
-  notes: "Hay que comprar pastel",
-  start: new Date(),
-  end: addHours (new Date(), 2 ),
-  bgColor: '#fafafa',
-  user: {
-    _id:'123',
-    name: 'Robert'
-  }
-
-}]
-
 export const CalendarPage = () => {
 
-  const {openDateModal} = useUiStore();
+  const {openDateModal,closeDateModal} = useUiStore();
+
+  const{events}= useCalendarStore();
 
   const [lastView, setLastView] = useState(localStorage.getItem('lastView') ||'week')
 
