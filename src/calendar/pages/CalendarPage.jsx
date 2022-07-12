@@ -7,6 +7,7 @@ import { addHours} from 'date-fns'
 import { Navbar, CalendarEvent, CalendarModal} from "../";
 import { localizer, getMessagesES } from '../../helpers';
 import { useState } from 'react';
+import { useUiStore } from '../../hooks';
 
 
 
@@ -29,6 +30,8 @@ const events = [{
 
 export const CalendarPage = () => {
 
+  const {openDateModal} = useUiStore();
+
   const [lastView, setLastView] = useState(localStorage.getItem('lastView') ||'week')
 
   const eventStyleGetter=(event, start, end, isSelected)=>{
@@ -40,43 +43,44 @@ export const CalendarPage = () => {
     color: 'white'
   }
   return{
-    style
-  }  
-}
+        style
+      }  
+    }
 
-const onDoubleClick = ( event)=>{
-  console.log({doubleClick:event})
-}
-const onSelect = ( event)=>{
-  console.log({click:event})
-}
-const onViewChanged = ( event)=>{
-  localStorage.setItem('lastView', event)
-  console.log(lastView)
-  setLastView(event)
-}
-  return (
-    <>
-      <Navbar />
-      <Calendar
-        culture='es'
-        localizer={localizer}
-        events={events}
-        defaultView={lastView}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 'calc(100vh - 80px)' }}
-        messages={getMessagesES()}
-        eventPropGetter={eventStyleGetter}
-        components={{
-          event: CalendarEvent
-        }}
-        onDoubleClickEvent = {onDoubleClick}
-        onSelectEvent={onSelect}
-        onView={onViewChanged}
-    />
-    <CalendarModal />
-    </>
-  )
+    const onDoubleClick = ( event)=>{
+      openDateModal()
+      // console.log({doubleClick:event})
+    }
+    const onSelect = ( event)=>{
+      console.log({click:event})
+    }
+    const onViewChanged = ( event)=>{
+      localStorage.setItem('lastView', event)
+      console.log(lastView)
+      setLastView(event)
+    }
+      return (
+        <>
+          <Navbar />
+          <Calendar
+            culture='es'
+            localizer={localizer}
+            events={events}
+            defaultView={lastView}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 'calc(100vh - 80px)' }}
+            messages={getMessagesES()}
+            eventPropGetter={eventStyleGetter}
+            components={{
+              event: CalendarEvent
+            }}
+            onDoubleClickEvent = {onDoubleClick}
+            onSelectEvent={onSelect}
+            onView={onViewChanged}
+        />
+        <CalendarModal />
+        </>
+      )
 }
 
