@@ -30,7 +30,25 @@ export const calendarSlice = createSlice({
       //* y estoy listo para escuchar la siguiente nota
       state.onSetActiveEvent = null;
     },
+    onUpdateEvent: (state, { payload }) => {
+      state.events = state.events.map((event) => {
+        if (event._id === payload._id) {
+          return payload;
+        }
+        return event;
+      });
+    },
+    onDeleteEvent: (state) => {
+      //*voy a regresar todos los eventos cuyo id sea diferente al de la nota activa
+      if (state.activeEvent) {
+        state.events = state.events.filter(
+          (event) => event._id !== state.activeEvent._id
+        );
+        state.activeEvent = null;
+      }
+    },
   },
 });
 //*Action creators are generated for each case reducer functions
-export const { onSetActiveEvent, onAddNewEvent } = calendarSlice.actions;
+export const { onSetActiveEvent, onAddNewEvent, onUpdateEvent, onDeleteEvent } =
+  calendarSlice.actions;
