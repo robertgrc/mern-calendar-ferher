@@ -30,6 +30,7 @@ export const useCalendarStore = () => {
   };
 
   const startDeletingEvent = () => {
+    //Todo:llegar al backend
     dispatch(onDeleteEvent());
   };
 
