@@ -7,7 +7,7 @@ export const useAuthStore = () => {
   const dispatch = useDispatch();
 
   const startLogin = async ({ email, password }) => {
-    console.log({ email, password });
+    //console.log({ email, password });
     dispatch(onChecking());
 
     try {
@@ -24,6 +24,29 @@ export const useAuthStore = () => {
     }
   };
 
+  const startRegister = async ({ email, password, name }) => {
+    //console.log({ email, password });
+    dispatch(onChecking());
+
+    try {
+      const { data } = await calendarApi.post("/auth/new", {
+        email,
+        password,
+        name,
+      });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+      //console.log({ resp });
+    } catch (error) {
+      //console.log(error);
+      dispatch(onLogout(error.response.data?.msg || "-------"));
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
   return {
     //*Propiedades
     errorMessage,
@@ -31,5 +54,6 @@ export const useAuthStore = () => {
     user,
     //*Metodos
     startLogin,
+    startRegister,
   };
 };
